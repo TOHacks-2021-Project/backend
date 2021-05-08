@@ -27,7 +27,6 @@ def get_recipes(
         if arg:
             url += '&' + param + '=' + arg
 
-    print(url)
     response = requests.get(url)
     content = json.loads(response.content)
     
@@ -39,11 +38,11 @@ def get_recipes(
             y = {
                 "name": x['label'],
                 "thumbnail": x['image'],
-                "servings": x['yield'],
                 "diets_label": x['dietLabels'],
                 "health_labels": x['healthLabels'],
                 "cautions": x['cautions'],
-                "calories": x['calories']
+                "servings": round(x['yield']),
+                "calories": round(x['calories'])
             }
 
             if meal_type:
@@ -106,6 +105,8 @@ def get_recipes_simplify(
                 "name": x['label'],
                 "thumbnail": x['image'],
                 "id": x['uri'],
+                "servings": round(x['yield']),
+                "calories": round(x['calories'])
             }
 
             recipes.append(y)
@@ -124,20 +125,17 @@ def get_recipe_by_id(
 
     content = json.loads(response.content)
     
-    recipes = []
     try:
         x = content[0]
 
         y = {
             "name": x['label'],
             "thumbnail": x['image'],
-            "servings": x['yield'],
             "diets_label": x['dietLabels'],
             "health_labels": x['healthLabels'],
             "cautions": x['cautions'],
-            "calories": x['calories'],
-            "meal_type": x['mealType'],
-            "dish_type": x['dishType']
+            "servings": round(x['yield']),
+            "calories": round(x['calories'])
         }
 
         ingredients = []
@@ -147,7 +145,7 @@ def get_recipe_by_id(
                 "grams": ingr['weight'],  # WEIGHT IS IN GRAMS
                 "image": ingr['image']
             })
-        
+            
         y['ingredients'] = ingredients
 
         return y
