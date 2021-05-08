@@ -1,5 +1,5 @@
 {
     "python.analysis.extraPaths": [
-        "./venv/lib/python3.6/site-packages/"
+        "./venv/lib/python3.8/site-packages/"
     ]
 }

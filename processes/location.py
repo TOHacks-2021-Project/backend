@@ -1,12 +1,4 @@
 import requests
-import os
-from os.path import join, dirname
-from dotenv import load_dotenv
-
-dotenv_path = join('.env')
-load_dotenv(dotenv_path)
-
-HERE_MAPS_API_KEY = os.environ.get("HERE_MAPS_API_KEY")
 
 largeStores = [
 "Budget Foods", 
@@ -103,7 +95,7 @@ largeStores = [
 "Bulk Barn", 
 ]
 
-def getStores(apiKey, lat, lng, radius=5000, smallStores=True, categories=["600-6300-0066"]):
+def getStores(apiKey, lat, lng, radius=5000, smallStores=True, categories=["600-6300-0066", "600-6300-0363", "600-6300-0364", "600-6900-0247"]):
     r = requests.get(
         f"https://browse.search.hereapi.com/v1/browse?"
         f"apiKey={apiKey}"
@@ -150,5 +142,3 @@ def getStores(apiKey, lat, lng, radius=5000, smallStores=True, categories=["600-
 
     stores.sort(key=lambda x: (not x["isOpen"], storeInfo["dist"]))
     return stores
-
-print(getStores(HERE_MAPS_API_KEY , 45.2670789, -75.7343782))
