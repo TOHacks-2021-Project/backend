@@ -2,3 +2,4 @@ wheel
 python-dotenv
 requests
 flask
+flask-cors
